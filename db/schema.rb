@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_01_064017) do
+ActiveRecord::Schema.define(version: 2023_07_01_072701) do
 
   create_table "owners", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2023_07_01_064017) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.text "description"
+    t.integer "store_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_id"], name: "index_products_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -30,5 +40,6 @@ ActiveRecord::Schema.define(version: 2023_07_01_064017) do
     t.index ["owner_id"], name: "index_stores_on_owner_id"
   end
 
+  add_foreign_key "products", "stores"
   add_foreign_key "stores", "owners"
 end
